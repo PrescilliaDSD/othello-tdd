@@ -4,14 +4,14 @@ import "./Board.scss";
 
 const Board = () => {
   const [board, setBoard] = useState([
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8]
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "black", "white", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "white", "black", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
   ]);
 
   return (
@@ -25,12 +25,10 @@ const Board = () => {
                 className={classNames(
                   "board__square",
                   {
-                    "contains-black-chip":
-                      (l === 3 && c === 3) || (l === 4 && c === 4)
+                    "contains-black-chip": square === "black"
                   },
                   {
-                    "contains-white-chip":
-                      (l === 4 && c === 3) || (l === 3 && c === 4)
+                    "contains-white-chip": square === "white"
                   }
                 )}
                 key={`square-${c}`}
