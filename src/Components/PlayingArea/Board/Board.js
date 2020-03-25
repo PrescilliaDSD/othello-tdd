@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Chip from "../Chip/Chip";
+import Square from "./Square";
 import "./Board.scss";
 
 const Board = ({ currentPlayer, setCurrentPlayer }) => {
@@ -34,14 +34,7 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
         <li className="board__line" key={`line-${l}`} data-testid={`line-${l}`}>
           <ul className="board__squares">
             {line.map((square, c) => (
-              <li
-                data-testid={`square-l${l}c${c}`}
-                className={`board__square contains-${square}-chip`}
-                key={`square-${c}`}
-                onClick={addChip(l, c)}
-              >
-                <Chip color={square} />
-              </li>
+              <Square line={l} column={c} type={square} addChip={addChip} />
             ))}
           </ul>
         </li>
