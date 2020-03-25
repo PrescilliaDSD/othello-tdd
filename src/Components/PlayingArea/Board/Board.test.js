@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Board from "./Board";
 
 describe("Board component", () => {
@@ -44,5 +44,45 @@ describe("Board component", () => {
     const square = wrapper.getByTestId("square-l4c3");
 
     expect(square).toHaveClass("contains-white-chip");
+  });
+
+  it("should display a square with no chip on line 1 column 1", () => {
+    const square = wrapper.getByTestId("square-l1c1");
+
+    expect(square).toHaveClass("contains-empty-chip");
+  });
+
+  it("should display a black chip if click on square line 2 column 4", () => {
+    const square = wrapper.getByTestId("square-l2c4");
+    fireEvent(
+      square,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    expect(square.children[0]).toHaveClass("black-chip");
+  });
+
+  it("should display a white chip on 2nd square clicked", () => {
+    const square1 = wrapper.getByTestId("square-l2c4");
+    fireEvent(
+      square1,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    expect(square1.children[0]).toHaveClass("black-chip");
+
+    const square2 = wrapper.getByTestId("square-l4c5");
+    fireEvent(
+      square2,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    expect(square2.children[0]).toHaveClass("white-chip");
   });
 });
