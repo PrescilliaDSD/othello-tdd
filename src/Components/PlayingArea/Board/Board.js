@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import classNames from "classnames";
+import PropTypes from "prop-types";
+import Chip from "../Chip/Chip";
 import "./Board.scss";
 
-const Board = () => {
+const Board = ({ currentPlayer, setCurrentPlayer }) => {
   const [board, setBoard] = useState([
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
@@ -14,6 +15,19 @@ const Board = () => {
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
   ]);
 
+  const addChip = (l, c) => () => {
+    const newBoard = board.map((line, lineIndex) => {
+      return line.map((column, columnIndex) => {
+        if (l === lineIndex && c === columnIndex) {
+          return currentPlayer;
+        }
+        return column;
+      });
+    });
+    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+    setBoard(newBoard);
+  };
+
   return (
     <ul data-testid="board" className="board">
       {board.map((line, l) => (
@@ -22,23 +36,23 @@ const Board = () => {
             {line.map((square, c) => (
               <li
                 data-testid={`square-l${l}c${c}`}
-                className={classNames(
-                  "board__square",
-                  {
-                    "contains-black-chip": square === "black"
-                  },
-                  {
-                    "contains-white-chip": square === "white"
-                  }
-                )}
+                className={`board__square contains-${square}-chip`}
                 key={`square-${c}`}
-              ></li>
+                onClick={addChip(l, c)}
+              >
+                <Chip color={square} />
+              </li>
             ))}
           </ul>
         </li>
       ))}
     </ul>
   );
+};
+
+Board.propTypes = {
+  currentPlayer: PropTypes.string.isRequired,
+  setCurrentPlayer: PropTypes.func.isRequired
 };
 
 export default Board;
