@@ -34,7 +34,16 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
         <li className="board__line" key={`line-${l}`} data-testid={`line-${l}`}>
           <ul className="board__squares">
             {line.map((square, c) => (
-              <Square line={l} column={c} type={square} addChip={addChip} />
+              <Square
+                l={l}
+                c={c}
+                type={square}
+                addChip={addChip}
+                board={board}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                setBoard={setBoard}
+              />
             ))}
           </ul>
         </li>
