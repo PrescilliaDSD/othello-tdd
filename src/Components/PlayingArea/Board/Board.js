@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Chip from "../Chip/Chip";
+import Square from "./Square";
 import "./Board.scss";
 
 const Board = ({ currentPlayer, setCurrentPlayer }) => {
@@ -12,21 +12,8 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
     ["empty", "empty", "empty", "white", "black", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
   ]);
-
-  const addChip = (l, c) => () => {
-    const newBoard = board.map((line, lineIndex) => {
-      return line.map((column, columnIndex) => {
-        if (l === lineIndex && c === columnIndex) {
-          return currentPlayer;
-        }
-        return column;
-      });
-    });
-    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
-    setBoard(newBoard);
-  };
 
   return (
     <ul data-testid="board" className="board">
@@ -34,14 +21,16 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
         <li className="board__line" key={`line-${l}`} data-testid={`line-${l}`}>
           <ul className="board__squares">
             {line.map((square, c) => (
-              <li
-                data-testid={`square-l${l}c${c}`}
-                className={`board__square contains-${square}-chip`}
-                key={`square-${c}`}
-                onClick={addChip(l, c)}
-              >
-                <Chip color={square} />
-              </li>
+              <Square
+                key={`line-${l}_column-${c}`}
+                l={l}
+                c={c}
+                type={square}
+                board={board}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                setBoard={setBoard}
+              />
             ))}
           </ul>
         </li>
@@ -52,7 +41,7 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
 
 Board.propTypes = {
   currentPlayer: PropTypes.string.isRequired,
-  setCurrentPlayer: PropTypes.func.isRequired
+  setCurrentPlayer: PropTypes.func.isRequired,
 };
 
 export default Board;
