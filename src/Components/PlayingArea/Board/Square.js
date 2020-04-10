@@ -8,30 +8,32 @@ const Square = ({
   l,
   c,
   type,
-  addChip,
   board,
   currentPlayer,
   setCurrentPlayer,
-  setBoard
+  setBoard,
 }) => {
+  const addChip = (l, c) => {
+    const newBoard = board.map((line, lineIndex) => {
+      return line.map((column, columnIndex) => {
+        if (l === lineIndex && c === columnIndex) {
+          return currentPlayer;
+        }
+        return column;
+      });
+    });
+    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+    setBoard(newBoard);
+    return undefined;
+  };
+
   const [, drop] = useDrop({
     accept: ItemTypes.ASIDE_CHIP,
-    drop: () => {
-      const newBoard = board.map((line, lineIndex) => {
-        return line.map((column, columnIndex) => {
-          if (l === lineIndex && c === columnIndex) {
-            return currentPlayer;
-          }
-          return column;
-        });
-      });
-      setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
-      setBoard(newBoard);
-    },
-    collect: mon => ({
+    drop: () => addChip(l, c),
+    collect: (mon) => ({
       isOver: !!mon.isOver(),
-      canDrop: !!mon.canDrop()
-    })
+      canDrop: !!mon.canDrop(),
+    }),
   });
 
   return (
@@ -40,7 +42,7 @@ const Square = ({
       className={`board__square contains-${type}-chip`}
       key={`square-${c}`}
       ref={drop}
-      onClick={addChip(l, c)}
+      onClick={() => addChip(l, c)}
     >
       {type !== "empty" && <Chip color={type} />}
     </li>
@@ -48,10 +50,13 @@ const Square = ({
 };
 
 Square.propTypes = {
-  line: PropTypes.number.isRequired,
-  column: PropTypes.number.isRequired,
+  l: PropTypes.number.isRequired,
+  c: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  addChip: PropTypes.func.isRequired
+  board: PropTypes.array.isRequired,
+  currentPlayer: PropTypes.string.isRequired,
+  setCurrentPlayer: PropTypes.func.isRequired,
+  setBoard: PropTypes.func.isRequired,
 };
 
 export default Square;

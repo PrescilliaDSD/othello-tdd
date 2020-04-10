@@ -12,21 +12,8 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
     ["empty", "empty", "empty", "white", "black", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
   ]);
-
-  const addChip = (l, c) => () => {
-    const newBoard = board.map((line, lineIndex) => {
-      return line.map((column, columnIndex) => {
-        if (l === lineIndex && c === columnIndex) {
-          return currentPlayer;
-        }
-        return column;
-      });
-    });
-    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
-    setBoard(newBoard);
-  };
 
   return (
     <ul data-testid="board" className="board">
@@ -35,10 +22,10 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
           <ul className="board__squares">
             {line.map((square, c) => (
               <Square
+                key={`line-${l}_column-${c}`}
                 l={l}
                 c={c}
                 type={square}
-                addChip={addChip}
                 board={board}
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}
@@ -54,7 +41,7 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
 
 Board.propTypes = {
   currentPlayer: PropTypes.string.isRequired,
-  setCurrentPlayer: PropTypes.func.isRequired
+  setCurrentPlayer: PropTypes.func.isRequired,
 };
 
 export default Board;

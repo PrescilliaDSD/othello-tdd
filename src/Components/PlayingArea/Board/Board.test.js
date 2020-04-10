@@ -1,12 +1,27 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 import Board from "./Board";
 
 describe("Board component", () => {
+  let props;
   let wrapper;
 
   beforeEach(() => {
-    wrapper = render(<Board />);
+    const identity = (el) => el;
+
+    props = {
+      connectDragSource: identity,
+      currentPlayer: "black",
+      setCurrentPlayer: jest.fn(),
+    };
+
+    wrapper = render(
+      <DndProvider backend={Backend}>
+        <Board {...props} />
+      </DndProvider>
+    );
   });
 
   it("should display 8 lines on the board", () => {
@@ -52,35 +67,32 @@ describe("Board component", () => {
     expect(square).toHaveClass("contains-empty-chip");
   });
 
-  it("should display a black chip if click on square line 2 column 4", () => {
+  it('should display a black chip if current Player is "black"', () => {
     const square = wrapper.getByTestId("square-l2c4");
     fireEvent(
       square,
       new MouseEvent("click", {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     );
     expect(square.children[0]).toHaveClass("black-chip");
   });
 
-  it("should display a white chip on 2nd square clicked", () => {
-    const square1 = wrapper.getByTestId("square-l2c4");
-    fireEvent(
-      square1,
-      new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true
-      })
+  it('should display a white chip if current Player is "white"', () => {
+    wrapper.unmount();
+    wrapper = render(
+      <DndProvider backend={Backend}>
+        <Board {...props} currentPlayer="white" />
+      </DndProvider>
     );
-    expect(square1.children[0]).toHaveClass("black-chip");
 
     const square2 = wrapper.getByTestId("square-l4c5");
     fireEvent(
       square2,
       new MouseEvent("click", {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     );
     expect(square2.children[0]).toHaveClass("white-chip");

@@ -1,12 +1,19 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 import AsideBoard from "./AsideBoard";
 
 describe("AsideBoard component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = render(<AsideBoard />);
+    const identity = (el) => el;
+    wrapper = render(
+      <DndProvider backend={Backend}>
+        <AsideBoard connectDragSource={identity} currentPlayer="black" />
+      </DndProvider>
+    );
   });
 
   it("should display a black chip", () => {
