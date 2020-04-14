@@ -1,5 +1,3 @@
-@import "../../../style/colors";
-
 .board {
   width: 800px;
   height: 800px;
@@ -16,13 +14,5 @@
     display: flex;
     margin: 0;
     padding: 0;
-  }
-
-  &__square {
-    list-style-type: none;
-    width: 98px;
-    height: 98px;
-    border: 1px solid $base-black;
-    background-color: $board-background;
   }
 }

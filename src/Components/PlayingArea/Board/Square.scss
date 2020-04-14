@@ -1,0 +1,13 @@
+@import "../../../style/colors";
+
+.square {
+  list-style-type: none;
+  width: 98px;
+  height: 98px;
+  border: 1px solid $base-black;
+  background-color: $board-background;
+
+  &__available {
+    cursor: pointer;
+  }
+}

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import Chip from "../Chip/Chip";
 import { ItemTypes } from "../../../utils/dnd";
+import "./Square.scss";
 
 const Square = ({
   l,
@@ -37,15 +38,29 @@ const Square = ({
   });
 
   return (
-    <li
-      data-testid={`square-l${l}c${c}`}
-      className={`board__square contains-${type}-chip`}
-      key={`square-${c}`}
-      ref={drop}
-      onClick={() => addChip(l, c)}
-    >
-      {type !== "empty" && <Chip color={type} />}
-    </li>
+    <>
+      {type === "available" && (
+        <li
+          data-testid={`square-l${l}c${c}`}
+          className={`square square__available contains-${type}-chip`}
+          key={`square-${c}`}
+          ref={drop}
+          onClick={() => addChip(l, c)}
+        >
+          {(type === "black" || type === "white") && <Chip color={type} />}
+        </li>
+      )}
+      {type !== "available" && (
+        <li
+          data-testid={`square-l${l}c${c}`}
+          className={`square contains-${type}-chip`}
+          key={`square-${c}`}
+          ref={drop}
+        >
+          {(type === "black" || type === "white") && <Chip color={type} />}
+        </li>
+      )}
+    </>
   );
 };
 
