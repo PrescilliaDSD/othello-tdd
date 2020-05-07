@@ -52,14 +52,40 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
               return "available";
             }
           }
-          if (
-            l === 2 &&
-            c === 3 &&
-            currentPlayer === "white" &&
-            board[l + 1][c] === "black" &&
-            board[l + 2][c] === "white"
-          ) {
-            return "available";
+          if (currentPlayer === "white") {
+            if (
+              l === 2 &&
+              c === 3 &&
+              board[l + 1][c] === "black" &&
+              board[l + 2][c] === "white"
+            ) {
+              return "available";
+            }
+            if (
+              l === 5 &&
+              c === 4 &&
+              board[l - 1][c] === "black" &&
+              board[l - 2][c] === "white"
+            ) {
+              return "available";
+            }
+            if (
+              l === 4 &&
+              c === 5 &&
+              board[l][c - 1] === "black" &&
+              board[l][c - 2] === "white"
+            ) {
+              return "available";
+            }
+
+            if (
+              l === 3 &&
+              c === 2 &&
+              board[l][c + 1] === "black" &&
+              board[l][c + 2] === "white"
+            ) {
+              return "available";
+            }
           }
         }
         return column;

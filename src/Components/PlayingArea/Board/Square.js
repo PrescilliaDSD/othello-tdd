@@ -30,19 +30,43 @@ const Square = ({
   const turningChips = (l, c, board) => {
     const newBoard = board.map((line, lineIndex) => {
       return line.map((column, columnIndex) => {
-        if (
-          currentPlayer === "black" &&
-          board[l][c - 1] === "white" &&
-          l === lineIndex &&
-          c - 1 === columnIndex &&
-          board[l][c - 2] === "black"
-        ) {
-          return "black";
+        if (currentPlayer === "black") {
+          if (
+            board[l][c - 1] === "white" &&
+            l === lineIndex &&
+            c - 1 === columnIndex &&
+            board[l][c - 2] === "black"
+          ) {
+            return "black";
+          }
+          if (
+            board[l][c + 1] === "white" &&
+            l === lineIndex &&
+            c + 1 === columnIndex &&
+            board[l][c + 2] === "black"
+          ) {
+            return "black";
+          }
+          if (
+            board[l + 1][c] === "white" &&
+            l + 1 === lineIndex &&
+            c === columnIndex &&
+            board[l + 2][c] === "black"
+          ) {
+            return "black";
+          }
+          if (
+            board[l - 1][c] === "white" &&
+            l - 1 === lineIndex &&
+            c === columnIndex &&
+            board[l - 2][c] === "black"
+          ) {
+            return "black";
+          }
         }
         return column;
       });
     });
-    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
     setBoard(newBoard);
   };
 

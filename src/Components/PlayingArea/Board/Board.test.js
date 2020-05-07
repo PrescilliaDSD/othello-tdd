@@ -212,6 +212,21 @@ describe("Board component", () => {
         const square = wrapper.getByTestId("square-l2c3");
         expect(square).toHaveClass("contains-available-chip");
       });
+
+      it("should be available if there is a black chip on the square above and a white chip two squares above", () => {
+        const square = wrapper.getByTestId("square-l5c4");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is a black chip one square left and a white chip two squares left", () => {
+        const square = wrapper.getByTestId("square-l4c5");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is a black chip one square right and a white chip two squares right", () => {
+        const square = wrapper.getByTestId("square-l3c2");
+        expect(square).toHaveClass("contains-available-chip");
+      });
     });
   });
 
@@ -235,11 +250,50 @@ describe("Board component", () => {
       );
     });
 
-    it("should turn black if there is a black chip above and a black chip below", () => {
+    it("should turn black if adding a black chip on the right and there is a black chip on the left", () => {
       const squareWithNewChip = wrapper.getByTestId("square-l3c4");
 
       fireEvent(
         wrapper.getByTestId("square-l3c5"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      expect(squareWithNewChip).toHaveClass("contains-black-chip");
+    });
+
+    it("should turn black if adding a black chip on the left and there is a black chip on the right", () => {
+      const squareWithNewChip = wrapper.getByTestId("square-l4c3");
+
+      fireEvent(
+        wrapper.getByTestId("square-l4c2"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      expect(squareWithNewChip).toHaveClass("contains-black-chip");
+    });
+
+    it("should turn black if adding a black chip above and there is a black chip below", () => {
+      const squareWithNewChip = wrapper.getByTestId("square-l3c4");
+
+      fireEvent(
+        wrapper.getByTestId("square-l2c4"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      expect(squareWithNewChip).toHaveClass("contains-black-chip");
+    });
+
+    it("should turn black if adding a black chip below and there is a black chip above", () => {
+      const squareWithNewChip = wrapper.getByTestId("square-l4c3");
+
+      fireEvent(
+        wrapper.getByTestId("square-l5c3"),
         new MouseEvent("click", {
           bubbles: true,
           cancelable: true,
