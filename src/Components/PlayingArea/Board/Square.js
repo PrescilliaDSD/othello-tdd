@@ -23,9 +23,27 @@ const Square = ({
         return column;
       });
     });
+    turningChips(l, c, newBoard);
+    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+  };
+
+  const turningChips = (l, c, board) => {
+    const newBoard = board.map((line, lineIndex) => {
+      return line.map((column, columnIndex) => {
+        if (
+          currentPlayer === "black" &&
+          board[l][c - 1] === "white" &&
+          l === lineIndex &&
+          c - 1 === columnIndex &&
+          board[l][c - 2] === "black"
+        ) {
+          return "black";
+        }
+        return column;
+      });
+    });
     setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
     setBoard(newBoard);
-    return undefined;
   };
 
   const [, drop] = useDrop({
@@ -47,7 +65,7 @@ const Square = ({
           ref={drop}
           onClick={() => addChip(l, c)}
         >
-          {(type === "black" || type === "white") && <Chip color={type} />}
+          <Chip color={type} />
         </li>
       )}
       {type !== "available" && (
@@ -55,7 +73,6 @@ const Square = ({
           data-testid={`square-l${l}c${c}`}
           className={`square contains-${type}-chip`}
           key={`square-${c}`}
-          ref={drop}
         >
           {(type === "black" || type === "white") && <Chip color={type} />}
         </li>

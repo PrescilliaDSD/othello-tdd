@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Square from "./Square";
 import "./Board.scss";
@@ -7,49 +7,66 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
   const [board, setBoard] = useState([
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-    [
-      "empty",
-      "empty",
-      "empty",
-      "empty",
-      "available",
-      "empty",
-      "empty",
-      "empty",
-    ],
-    [
-      "empty",
-      "empty",
-      "empty",
-      "black",
-      "white",
-      "available",
-      "empty",
-      "empty",
-    ],
-    [
-      "empty",
-      "empty",
-      "available",
-      "white",
-      "black",
-      "empty",
-      "empty",
-      "empty",
-    ],
-    [
-      "empty",
-      "empty",
-      "empty",
-      "available",
-      "empty",
-      "empty",
-      "empty",
-      "empty",
-    ],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "black", "white", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "white", "black", "empty", "empty", "empty"],
+    ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
     ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
   ]);
+
+  useEffect(() => {
+    const newBoardWithAvailableChip = board.map((line, l) => {
+      return line.map((column, c) => {
+        if (column === "empty") {
+          if (currentPlayer === "black") {
+            if (
+              l === 2 &&
+              c === 4 &&
+              board[l + 1][c] === "white" &&
+              board[l + 2][c] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              l === 5 &&
+              c === 3 &&
+              board[l - 1][c] === "white" &&
+              board[l - 2][c] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              l === 4 &&
+              c === 2 &&
+              board[l][c + 1] === "white" &&
+              board[l][c + 2] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              (l === 3) & (c === 5) &&
+              board[l][c - 1] === "white" &&
+              board[l][c - 2] === "black"
+            ) {
+              return "available";
+            }
+          }
+          if (
+            l === 2 &&
+            c === 3 &&
+            currentPlayer === "white" &&
+            board[l + 1][c] === "black" &&
+            board[l + 2][c] === "white"
+          ) {
+            return "available";
+          }
+        }
+        return column;
+      });
+    });
+    setBoard(newBoardWithAvailableChip);
+  }, [currentPlayer]);
 
   return (
     <ul data-testid="board" className="board">

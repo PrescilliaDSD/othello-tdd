@@ -18,3 +18,11 @@
 .empty-chip {
   border: none;
 }
+
+.available-chip {
+  width: 20px;
+  height: 20px;
+  background-color: $available-chip;
+  margin: auto;
+  margin-top: 39px;
+}
