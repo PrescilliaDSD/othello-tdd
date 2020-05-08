@@ -15,7 +15,7 @@ export const checkIfASquareIsAvailable = (board, currentPlayer, setBoard) => {
       if (square === "empty") {
         if (currentPlayer === "black") {
           if (
-            lineIndex <= 6 &&
+            lineIndex <= 5 &&
             board[lineIndex + 1][columnIndex] === "white" &&
             board[lineIndex + 2][columnIndex] === "black"
           ) {
@@ -29,7 +29,7 @@ export const checkIfASquareIsAvailable = (board, currentPlayer, setBoard) => {
             return "available";
           }
           if (
-            columnIndex <= 6 &&
+            columnIndex <= 5 &&
             board[lineIndex][columnIndex + 1] === "white" &&
             board[lineIndex][columnIndex + 2] === "black"
           ) {
@@ -45,7 +45,7 @@ export const checkIfASquareIsAvailable = (board, currentPlayer, setBoard) => {
         }
         if (currentPlayer === "white") {
           if (
-            lineIndex <= 6 &&
+            lineIndex <= 5 &&
             board[lineIndex + 1][columnIndex] === "black" &&
             board[lineIndex + 2][columnIndex] === "white"
           ) {
@@ -59,7 +59,7 @@ export const checkIfASquareIsAvailable = (board, currentPlayer, setBoard) => {
             return "available";
           }
           if (
-            columnIndex <= 6 &&
+            columnIndex <= 5 &&
             board[lineIndex][columnIndex - 1] === "black" &&
             board[lineIndex][columnIndex - 2] === "white"
           ) {
@@ -92,6 +92,7 @@ export const turningChipAfterAPlayerAddedOne = (
     return line.map((column, columnIndex) => {
       if (currentPlayer === "black") {
         if (
+          squareColumnIndex >= 2 &&
           board[squareLineIndex][squareColumnIndex - 1] === "white" &&
           squareLineIndex === lineIndex &&
           squareColumnIndex - 1 === columnIndex &&
@@ -100,6 +101,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "black";
         }
         if (
+          squareColumnIndex <= 5 &&
           board[squareLineIndex][squareColumnIndex + 1] === "white" &&
           squareLineIndex === lineIndex &&
           squareColumnIndex + 1 === columnIndex &&
@@ -108,6 +110,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "black";
         }
         if (
+          squareLineIndex <= 5 &&
           board[squareLineIndex + 1][squareColumnIndex] === "white" &&
           squareLineIndex + 1 === lineIndex &&
           squareColumnIndex === columnIndex &&
@@ -116,6 +119,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "black";
         }
         if (
+          squareLineIndex >= 2 &&
           board[squareLineIndex - 1][squareColumnIndex] === "white" &&
           squareLineIndex - 1 === lineIndex &&
           squareColumnIndex === columnIndex &&
@@ -126,6 +130,7 @@ export const turningChipAfterAPlayerAddedOne = (
       }
       if (currentPlayer === "white") {
         if (
+          squareColumnIndex >= 2 &&
           board[squareLineIndex][squareColumnIndex - 1] === "black" &&
           squareLineIndex === lineIndex &&
           squareColumnIndex - 1 === columnIndex &&
@@ -134,6 +139,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "white";
         }
         if (
+          squareColumnIndex <= 5 &&
           board[squareLineIndex][squareColumnIndex + 1] === "black" &&
           squareLineIndex === lineIndex &&
           squareColumnIndex + 1 === columnIndex &&
@@ -142,6 +148,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "white";
         }
         if (
+          squareLineIndex <= 5 &&
           board[squareLineIndex + 1][squareColumnIndex] === "black" &&
           squareLineIndex + 1 === lineIndex &&
           squareColumnIndex === columnIndex &&
@@ -150,6 +157,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "white";
         }
         if (
+          squareLineIndex >= 2 &&
           board[squareLineIndex - 1][squareColumnIndex] === "black" &&
           squareLineIndex - 1 === lineIndex &&
           squareColumnIndex === columnIndex &&
