@@ -98,8 +98,8 @@ describe("Square component", () => {
         ],
       ],
       setBoard: jest.fn(),
-      l: 3,
-      c: 4,
+      squareLineIndex: 3,
+      squareColumnIndex: 4,
       type: "white",
     };
 
@@ -110,7 +110,7 @@ describe("Square component", () => {
     );
   });
 
-  it("should not be possible to click on a square who contains a white chip", () => {
+  it("should not be possible to click on a square that contains a white chip", () => {
     const square = wrapper.getByTestId("square-l3c4");
 
     expect(square.children[0]).toHaveClass("white-chip");
@@ -131,7 +131,13 @@ describe("Square component", () => {
 
     wrapper = render(
       <DndProvider backend={Backend}>
-        <Square {...props} l={3} c={3} type="black" currentPlayer="white" />
+        <Square
+          {...props}
+          squareLineIndex={3}
+          squareColumnIndex={3}
+          type="black"
+          currentPlayer="white"
+        />
       </DndProvider>
     );
 
