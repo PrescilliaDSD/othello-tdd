@@ -64,6 +64,40 @@ const Square = ({
             return "black";
           }
         }
+        if (currentPlayer === "white") {
+          if (
+            board[l][c - 1] === "black" &&
+            l === lineIndex &&
+            c - 1 === columnIndex &&
+            board[l][c - 2] === "white"
+          ) {
+            return "white";
+          }
+          if (
+            board[l][c + 1] === "black" &&
+            l === lineIndex &&
+            c + 1 === columnIndex &&
+            board[l][c + 2] === "white"
+          ) {
+            return "white";
+          }
+          if (
+            board[l + 1][c] === "black" &&
+            l + 1 === lineIndex &&
+            c === columnIndex &&
+            board[l + 2][c] === "white"
+          ) {
+            return "white";
+          }
+          if (
+            board[l - 1][c] === "black" &&
+            l - 1 === lineIndex &&
+            c === columnIndex &&
+            board[l - 2][c] === "white"
+          ) {
+            return "white";
+          }
+        }
         return column;
       });
     });

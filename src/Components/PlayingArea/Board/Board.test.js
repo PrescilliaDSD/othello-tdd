@@ -231,75 +231,150 @@ describe("Board component", () => {
   });
 
   describe("rules to change chips color", () => {
-    let props;
-    let wrapper;
+    describe("on black player turn", () => {
+      let props;
+      let wrapper;
 
-    beforeEach(() => {
-      const identity = (el) => el;
+      beforeEach(() => {
+        const identity = (el) => el;
 
-      props = {
-        connectDragSource: identity,
-        currentPlayer: "black",
-        setCurrentPlayer: jest.fn(),
-      };
+        props = {
+          connectDragSource: identity,
+          currentPlayer: "black",
+          setCurrentPlayer: jest.fn(),
+        };
 
-      wrapper = render(
-        <DndProvider backend={Backend}>
-          <Board {...props} />
-        </DndProvider>
-      );
+        wrapper = render(
+          <DndProvider backend={Backend}>
+            <Board {...props} />
+          </DndProvider>
+        );
+      });
+
+      it("should turn black if adding a black chip on the right and there is a black chip on the left", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c4");
+
+        fireEvent(
+          wrapper.getByTestId("square-l3c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn black if adding a black chip on the left and there is a black chip on the right", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c3");
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn black if adding a black chip above and there is a black chip below", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c4");
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn black if adding a black chip below and there is a black chip above", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c3");
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
     });
 
-    it("should turn black if adding a black chip on the right and there is a black chip on the left", () => {
-      const squareWithNewChip = wrapper.getByTestId("square-l3c4");
+    describe("on white player turn", () => {
+      let props;
+      let wrapper;
 
-      fireEvent(
-        wrapper.getByTestId("square-l3c5"),
-        new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-      expect(squareWithNewChip).toHaveClass("contains-black-chip");
-    });
+      beforeEach(() => {
+        const identity = (el) => el;
 
-    it("should turn black if adding a black chip on the left and there is a black chip on the right", () => {
-      const squareWithNewChip = wrapper.getByTestId("square-l4c3");
+        props = {
+          connectDragSource: identity,
+          currentPlayer: "white",
+          setCurrentPlayer: jest.fn(),
+        };
 
-      fireEvent(
-        wrapper.getByTestId("square-l4c2"),
-        new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-      expect(squareWithNewChip).toHaveClass("contains-black-chip");
-    });
+        wrapper = render(
+          <DndProvider backend={Backend}>
+            <Board {...props} />
+          </DndProvider>
+        );
+      });
 
-    it("should turn black if adding a black chip above and there is a black chip below", () => {
-      const squareWithNewChip = wrapper.getByTestId("square-l3c4");
+      it("should turn white if adding a white chip on the right and there is a white chip on the left", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c4");
 
-      fireEvent(
-        wrapper.getByTestId("square-l2c4"),
-        new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-      expect(squareWithNewChip).toHaveClass("contains-black-chip");
-    });
+        fireEvent(
+          wrapper.getByTestId("square-l4c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-white-chip");
+      });
 
-    it("should turn black if adding a black chip below and there is a black chip above", () => {
-      const squareWithNewChip = wrapper.getByTestId("square-l4c3");
+      it("should turn white if adding a white chip on the left and there is a white chip on the right", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c3");
 
-      fireEvent(
-        wrapper.getByTestId("square-l5c3"),
-        new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-      expect(squareWithNewChip).toHaveClass("contains-black-chip");
+        fireEvent(
+          wrapper.getByTestId("square-l3c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-white-chip");
+      });
+
+      it("should turn white if adding a white chip above and there is a black chip below", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c3");
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-white-chip");
+      });
+
+      it("should turn white if adding a white chip below and there is a black chip above", () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c4");
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-white-chip");
+      });
     });
   });
 });
