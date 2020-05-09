@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, act } from "@testing-library/react";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import Board from "./Board";
@@ -9,103 +9,22 @@ describe("Board component", () => {
     let props;
     let wrapper;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       const identity = (el) => el;
 
       props = {
         connectDragSource: identity,
         currentPlayer: "black",
         setCurrentPlayer: jest.fn(),
-        board: [
-          [
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "available",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "black",
-            "white",
-            "available",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "available",
-            "white",
-            "black",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "available",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-          ],
-          [
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-            "empty",
-          ],
-        ],
-        setBoard: jest.fn(),
       };
 
-      wrapper = render(
-        <DndProvider backend={Backend}>
-          <Board {...props} />
-        </DndProvider>
-      );
+      await act(async () => {
+        wrapper = render(
+          <DndProvider backend={Backend}>
+            <Board {...props} />
+          </DndProvider>
+        );
+      });
     });
 
     it("should display 8 lines on the board", () => {
@@ -151,7 +70,7 @@ describe("Board component", () => {
       let props;
       let wrapper;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         const identity = (el) => el;
 
         props = {
@@ -160,11 +79,13 @@ describe("Board component", () => {
           setCurrentPlayer: jest.fn(),
         };
 
-        wrapper = render(
-          <DndProvider backend={Backend}>
-            <Board {...props} />
-          </DndProvider>
-        );
+        await act(async () => {
+          wrapper = render(
+            <DndProvider backend={Backend}>
+              <Board {...props} />
+            </DndProvider>
+          );
+        });
       });
 
       it("should be available if there is a white chip on the square below and a black chip two squares below", () => {
@@ -186,13 +107,265 @@ describe("Board component", () => {
         const square = wrapper.getByTestId("square-l3c5");
         expect(square).toHaveClass("contains-available-chip");
       });
+
+      it("should be available if there is 2 white chips below and a black chip three squares below", async () => {
+        await act(async () => {
+          fireEvent(
+            wrapper.getByTestId("square-l5c3"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l5c4"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l6c4"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l3c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l2c4");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is 2 white chips above and a black chip three squares above", async () => {
+        await act(async () => {
+          fireEvent(
+            wrapper.getByTestId("square-l2c4"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l2c3"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l2c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l3c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l5c3");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is 2 white chips on the right and a black chip three squares right", async () => {
+        await act(async () => {
+          fireEvent(
+            wrapper.getByTestId("square-l3c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l4c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l5c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l2c4"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l4c2");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is 2 white chips on the left and a black chip three squares left", async () => {
+        await act(async () => {
+          fireEvent(
+            wrapper.getByTestId("square-l4c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l3c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l2c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l5c3"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l3c5");
+        expect(square).toHaveClass("contains-available-chip");
+      });
     });
 
     describe("on white player turn the square...", () => {
       let props;
       let wrapper;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         const identity = (el) => el;
 
         props = {
@@ -201,11 +374,13 @@ describe("Board component", () => {
           setCurrentPlayer: jest.fn(),
         };
 
-        wrapper = render(
-          <DndProvider backend={Backend}>
-            <Board {...props} />
-          </DndProvider>
-        );
+        await act(async () => {
+          wrapper = render(
+            <DndProvider backend={Backend}>
+              <Board {...props} />
+            </DndProvider>
+          );
+        });
       });
 
       it("should be available if there is a black chip on the square below and a white chip two squares below", () => {
@@ -235,7 +410,7 @@ describe("Board component", () => {
       let props;
       let wrapper;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         const identity = (el) => el;
 
         props = {
@@ -244,11 +419,13 @@ describe("Board component", () => {
           setCurrentPlayer: jest.fn(),
         };
 
-        wrapper = render(
-          <DndProvider backend={Backend}>
-            <Board {...props} />
-          </DndProvider>
-        );
+        await act(async () => {
+          wrapper = render(
+            <DndProvider backend={Backend}>
+              <Board {...props} />
+            </DndProvider>
+          );
+        });
       });
 
       it("should turn black if adding a black chip on the right and there is a black chip on the left", () => {
@@ -308,7 +485,7 @@ describe("Board component", () => {
       let props;
       let wrapper;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         const identity = (el) => el;
 
         props = {
@@ -317,11 +494,13 @@ describe("Board component", () => {
           setCurrentPlayer: jest.fn(),
         };
 
-        wrapper = render(
-          <DndProvider backend={Backend}>
-            <Board {...props} />
-          </DndProvider>
-        );
+        await act(async () => {
+          wrapper = render(
+            <DndProvider backend={Backend}>
+              <Board {...props} />
+            </DndProvider>
+          );
+        });
       });
 
       it("should turn white if adding a white chip on the right and there is a white chip on the left", () => {
@@ -378,31 +557,3 @@ describe("Board component", () => {
     });
   });
 });
-
-// it("should be available if there is 2 white chips below and a black chip three squares below", () => {
-//   wrapper.unmount();
-
-//   wrapper = render(
-//     <DndProvider backend={Backend}>
-//       <Board {...props} currentPlayer="white" />
-//     </DndProvider>
-//   );
-
-//   fireEvent(
-//     wrapper.getByTestId("square-l2c4"),
-//     new MouseEvent("click", {
-//       bubbles: true,
-//       cancelable: true,
-//     })
-//   );
-
-//   // change currentPlayer to black ?
-//   wrapper.rerender(
-//     <DndProvider backend={Backend}>
-//       <Board {...props} currentPlayer="black" />
-//     </DndProvider>
-//   );
-
-//   const square = wrapper.getByTestId("square-l1c4");
-//   expect(square).toHaveClass("contains-available-chip");
-// });

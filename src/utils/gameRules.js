@@ -9,75 +9,122 @@ export const startingBoard = [
   ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
 ];
 
-export const checkIfASquareIsAvailable = (board, currentPlayer, setBoard) => {
-  const newBoardWithAvailableChip = board.map((line, lineIndex) => {
-    return line.map((square, columnIndex) => {
-      if (square === "empty") {
-        if (currentPlayer === "black") {
-          if (
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex] === "white" &&
-            board[lineIndex + 2][columnIndex] === "black"
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex] === "white" &&
-            board[lineIndex - 2][columnIndex] === "black"
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            board[lineIndex][columnIndex + 1] === "white" &&
-            board[lineIndex][columnIndex + 2] === "black"
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex >= 2 &&
-            board[lineIndex][columnIndex - 1] === "white" &&
-            board[lineIndex][columnIndex - 2] === "black"
-          ) {
-            return "available";
-          }
-        }
-        if (currentPlayer === "white") {
-          if (
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex] === "black" &&
-            board[lineIndex + 2][columnIndex] === "white"
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex] === "black" &&
-            board[lineIndex - 2][columnIndex] === "white"
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            board[lineIndex][columnIndex - 1] === "black" &&
-            board[lineIndex][columnIndex - 2] === "white"
-          ) {
-            return "available";
-          }
-
-          if (
-            columnIndex >= 2 &&
-            board[lineIndex][columnIndex + 1] === "black" &&
-            board[lineIndex][columnIndex + 2] === "white"
-          ) {
-            return "available";
-          }
-        }
-      }
-      return square;
+export const clearAvailableSquares = (board) => {
+  return board.map((line) => {
+    return line.map((square) => {
+      return square === "available" ? "empty" : square;
     });
   });
+};
+
+export const checkIfASquareIsAvailable = async (
+  board,
+  currentPlayer,
+  setBoard
+) => {
+  const clearedBoard = await clearAvailableSquares(board);
+  const newBoardWithAvailableChip = await clearedBoard.map(
+    (line, lineIndex) => {
+      return line.map((square, columnIndex) => {
+        if (square === "empty") {
+          if (currentPlayer === "black") {
+            if (
+              lineIndex <= 5 &&
+              board[lineIndex + 1][columnIndex] === "white" &&
+              board[lineIndex + 2][columnIndex] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              lineIndex >= 2 &&
+              board[lineIndex - 1][columnIndex] === "white" &&
+              board[lineIndex - 2][columnIndex] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              columnIndex <= 5 &&
+              board[lineIndex][columnIndex + 1] === "white" &&
+              board[lineIndex][columnIndex + 2] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              columnIndex >= 2 &&
+              board[lineIndex][columnIndex - 1] === "white" &&
+              board[lineIndex][columnIndex - 2] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              lineIndex <= 5 &&
+              board[lineIndex + 1][columnIndex] === "white" &&
+              board[lineIndex + 2][columnIndex] === "white" &&
+              board[lineIndex + 3][columnIndex] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              lineIndex >= 2 &&
+              board[lineIndex - 1][columnIndex] === "white" &&
+              board[lineIndex - 2][columnIndex] === "white" &&
+              board[lineIndex - 3][columnIndex] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              columnIndex <= 5 &&
+              board[lineIndex][columnIndex + 1] === "white" &&
+              board[lineIndex][columnIndex + 2] === "white" &&
+              board[lineIndex][columnIndex + 3] === "black"
+            ) {
+              return "available";
+            }
+            if (
+              columnIndex >= 2 &&
+              board[lineIndex][columnIndex - 1] === "white" &&
+              board[lineIndex][columnIndex - 2] === "white" &&
+              board[lineIndex][columnIndex - 3] === "black"
+            ) {
+              return "available";
+            }
+          }
+          if (currentPlayer === "white") {
+            if (
+              lineIndex <= 5 &&
+              board[lineIndex + 1][columnIndex] === "black" &&
+              board[lineIndex + 2][columnIndex] === "white"
+            ) {
+              return "available";
+            }
+            if (
+              lineIndex >= 2 &&
+              board[lineIndex - 1][columnIndex] === "black" &&
+              board[lineIndex - 2][columnIndex] === "white"
+            ) {
+              return "available";
+            }
+            if (
+              columnIndex <= 5 &&
+              board[lineIndex][columnIndex - 1] === "black" &&
+              board[lineIndex][columnIndex - 2] === "white"
+            ) {
+              return "available";
+            }
+
+            if (
+              columnIndex >= 2 &&
+              board[lineIndex][columnIndex + 1] === "black" &&
+              board[lineIndex][columnIndex + 2] === "white"
+            ) {
+              return "available";
+            }
+          }
+        }
+        return square;
+      });
+    }
+  );
   setBoard(newBoardWithAvailableChip);
 };
 

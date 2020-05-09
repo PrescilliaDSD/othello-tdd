@@ -57,7 +57,11 @@ const Square = ({
       })}
       key={`square-${squareColumnIndex}`}
       ref={drop}
-      onClick={() => addChipOnTheBoard(squareLineIndex, squareColumnIndex)}
+      onClick={
+        type === "available"
+          ? () => addChipOnTheBoard(squareLineIndex, squareColumnIndex)
+          : () => {}
+      }
     >
       <Chip color={type} />
     </li>
