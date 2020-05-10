@@ -136,7 +136,7 @@ export const turningChipAfterAPlayerAddedOne = (
   setBoard
 ) => {
   const newBoard = board.map((line, lineIndex) => {
-    return line.map((column, columnIndex) => {
+    return line.map((square, columnIndex) => {
       if (currentPlayer === "black") {
         if (
           squareColumnIndex >= 2 &&
@@ -144,15 +144,6 @@ export const turningChipAfterAPlayerAddedOne = (
           squareLineIndex === lineIndex &&
           squareColumnIndex - 1 === columnIndex &&
           board[squareLineIndex][squareColumnIndex - 2] === "black"
-        ) {
-          return "black";
-        }
-        if (
-          squareColumnIndex <= 5 &&
-          board[squareLineIndex][squareColumnIndex + 1] === "white" &&
-          squareLineIndex === lineIndex &&
-          squareColumnIndex + 1 === columnIndex &&
-          board[squareLineIndex][squareColumnIndex + 2] === "black"
         ) {
           return "black";
         }
@@ -173,6 +164,37 @@ export const turningChipAfterAPlayerAddedOne = (
           board[squareLineIndex - 2][squareColumnIndex] === "black"
         ) {
           return "black";
+        }
+
+        // j'ai placé un pion noir.
+        // je regarde si le pion à droite est blanc. Si c'est le cas, je continue.
+        // si le pion suivant est noir, le pion blanc devient noir. S'il est blanc, je continue.
+        // je continue ces vérifications jusqu'à ce que je tombe sur une case vide/dispo/noir ou la bordure du plateau
+
+        if (
+          squareColumnIndex >= 0 &&
+          squareColumnIndex <= 5 &&
+          squareLineIndex === lineIndex &&
+          square === "white"
+        ) {
+          if (squareColumnIndex + 1 === columnIndex) {
+            if (board[lineIndex][columnIndex + 1] === "black") {
+              return "black";
+            }
+            if (
+              board[lineIndex][columnIndex + 1] === "white" &&
+              board[lineIndex][columnIndex + 2] === "black"
+            ) {
+              return "black";
+            }
+          }
+          if (
+            squareColumnIndex + 2 === columnIndex &&
+            board[lineIndex][columnIndex - 1] === "white" &&
+            board[lineIndex][columnIndex + 1] === "black"
+          ) {
+            return "black";
+          }
         }
       }
       if (currentPlayer === "white") {
@@ -213,7 +235,7 @@ export const turningChipAfterAPlayerAddedOne = (
           return "white";
         }
       }
-      return column;
+      return square;
     });
   });
   setBoard(newBoard);

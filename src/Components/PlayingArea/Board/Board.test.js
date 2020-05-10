@@ -428,7 +428,7 @@ describe("Board component", () => {
         });
       });
 
-      it("should turn black if adding a black chip on the right and there is a black chip on the left", () => {
+      it("should turn one chip black if adding a black chip on the right and there is a black chip on the left", () => {
         const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c4");
 
         fireEvent(
@@ -441,7 +441,7 @@ describe("Board component", () => {
         expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
       });
 
-      it("should turn black if adding a black chip on the left and there is a black chip on the right", () => {
+      it("should turn one chip black if adding a black chip on the left and there is a black chip on the right", () => {
         const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c3");
 
         fireEvent(
@@ -454,7 +454,7 @@ describe("Board component", () => {
         expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
       });
 
-      it("should turn black if adding a black chip above and there is a black chip below", () => {
+      it("should turn one chip black if adding a black chip above and there is a black chip below", () => {
         const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c4");
 
         fireEvent(
@@ -467,7 +467,7 @@ describe("Board component", () => {
         expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
       });
 
-      it("should turn black if adding a black chip below and there is a black chip above", () => {
+      it("should turn one chip black if adding a black chip below and there is a black chip above", () => {
         const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c3");
 
         fireEvent(
@@ -478,6 +478,80 @@ describe("Board component", () => {
           })
         );
         expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn two chips black if adding a black chip on the right and there is a black chip on the left", async () => {
+        const squareWithChipThatWillTurn1 = wrapper.getByTestId("square-l4c3");
+        const squareWithChipThatWillTurn2 = wrapper.getByTestId("square-l4c4");
+
+        await act(async () => {
+          fireEvent(
+            wrapper.getByTestId("square-l3c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l4c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l5c5"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="white" />
+            </DndProvider>
+          );
+
+          fireEvent(
+            wrapper.getByTestId("square-l2c4"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+
+          wrapper.rerender(
+            <DndProvider backend={Backend}>
+              <Board {...props} currentPlayer="black" />
+            </DndProvider>
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        expect(squareWithChipThatWillTurn1).toHaveClass("contains-black-chip");
+        expect(squareWithChipThatWillTurn2).toHaveClass("contains-black-chip");
       });
     });
 
