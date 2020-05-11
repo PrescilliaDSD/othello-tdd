@@ -181,20 +181,23 @@ export const turningChipAfterAPlayerAddedOne = (
             if (board[lineIndex][columnIndex + 1] === "black") {
               return "black";
             }
-            if (
-              board[lineIndex][columnIndex + 1] === "white" &&
-              board[lineIndex][columnIndex + 2] === "black"
-            ) {
-              return "black";
+            if (board[lineIndex][columnIndex + 1] === "white") {
+              if (board[lineIndex][columnIndex + 2] === "black") {
+                return "black";
+              } else {
+                return square;
+              }
+            } else {
+              return square;
             }
           }
-          if (
-            squareColumnIndex + 2 === columnIndex &&
-            board[lineIndex][columnIndex - 1] === "white" &&
-            board[lineIndex][columnIndex + 1] === "black"
-          ) {
-            return "black";
-          }
+          // if (
+          //   squareColumnIndex + 2 === columnIndex &&
+          //   board[lineIndex][columnIndex - 1] === "white" &&
+          //   board[lineIndex][columnIndex + 1] === "black"
+          // ) {
+          //   return "black";
+          // }
         }
       }
       if (currentPlayer === "white") {

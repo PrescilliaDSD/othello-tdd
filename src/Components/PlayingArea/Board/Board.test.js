@@ -1,6 +1,6 @@
 import React from "react";
-import { render, fireEvent, act } from "@testing-library/react";
-import { DndProvider } from "react-dnd";
+// my-component.test.js
+import { render, fireEvent, act } from "../../../utils/test-utils";
 import Backend from "react-dnd-html5-backend";
 import Board from "./Board";
 
@@ -19,11 +19,7 @@ describe("Board component", () => {
       };
 
       await act(async () => {
-        wrapper = render(
-          <DndProvider backend={Backend}>
-            <Board {...props} />
-          </DndProvider>
-        );
+        wrapper = render(<Board {...props} />);
       });
     });
 
@@ -80,11 +76,7 @@ describe("Board component", () => {
         };
 
         await act(async () => {
-          wrapper = render(
-            <DndProvider backend={Backend}>
-              <Board {...props} />
-            </DndProvider>
-          );
+          wrapper = render(<Board {...props} />);
         });
       });
 
@@ -118,11 +110,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l5c4"),
@@ -132,11 +120,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
 
           fireEvent(
             wrapper.getByTestId("square-l6c4"),
@@ -146,11 +130,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l3c2"),
@@ -160,12 +140,12 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
         });
+        console.log(wrapper.getByTestId("square-l5c3").className); // black => black
+        console.log(wrapper.getByTestId("square-l5c4").className); // black => empty
+        console.log(wrapper.getByTestId("square-l6c4").className); // black => empty
+        console.log(wrapper.getByTestId("square-l3c2").className); // white => empty
 
         const square = wrapper.getByTestId("square-l2c4");
         expect(square).toHaveClass("contains-available-chip");
@@ -181,11 +161,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l2c3"),
@@ -195,11 +171,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
 
           fireEvent(
             wrapper.getByTestId("square-l2c2"),
@@ -209,11 +181,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l3c5"),
@@ -223,11 +191,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
         });
 
         const square = wrapper.getByTestId("square-l5c3");
@@ -244,11 +208,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l4c5"),
@@ -258,11 +218,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
 
           fireEvent(
             wrapper.getByTestId("square-l5c5"),
@@ -272,11 +228,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l2c4"),
@@ -286,11 +238,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
         });
 
         const square = wrapper.getByTestId("square-l4c2");
@@ -307,11 +255,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l3c2"),
@@ -321,11 +265,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
 
           fireEvent(
             wrapper.getByTestId("square-l2c2"),
@@ -335,11 +275,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l5c3"),
@@ -349,11 +285,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
         });
 
         const square = wrapper.getByTestId("square-l3c5");
@@ -375,11 +307,7 @@ describe("Board component", () => {
         };
 
         await act(async () => {
-          wrapper = render(
-            <DndProvider backend={Backend}>
-              <Board {...props} />
-            </DndProvider>
-          );
+          wrapper = render(<Board {...props} />);
         });
       });
 
@@ -420,11 +348,7 @@ describe("Board component", () => {
         };
 
         await act(async () => {
-          wrapper = render(
-            <DndProvider backend={Backend}>
-              <Board {...props} />
-            </DndProvider>
-          );
+          wrapper = render(<Board {...props} />);
         });
       });
 
@@ -493,11 +417,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l4c5"),
@@ -507,11 +427,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
 
           fireEvent(
             wrapper.getByTestId("square-l5c5"),
@@ -521,11 +437,7 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="white" />
-            </DndProvider>
-          );
+          wrapper.rerender(<Board {...props} currentPlayer="white" />);
 
           fireEvent(
             wrapper.getByTestId("square-l2c4"),
@@ -535,20 +447,16 @@ describe("Board component", () => {
             })
           );
 
-          wrapper.rerender(
-            <DndProvider backend={Backend}>
-              <Board {...props} currentPlayer="black" />
-            </DndProvider>
+          wrapper.rerender(<Board {...props} currentPlayer="black" />);
+
+          fireEvent(
+            wrapper.getByTestId("square-l4c2"),
+            new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+            })
           );
         });
-
-        fireEvent(
-          wrapper.getByTestId("square-l4c2"),
-          new MouseEvent("click", {
-            bubbles: true,
-            cancelable: true,
-          })
-        );
 
         expect(squareWithChipThatWillTurn1).toHaveClass("contains-black-chip");
         expect(squareWithChipThatWillTurn2).toHaveClass("contains-black-chip");
@@ -569,11 +477,7 @@ describe("Board component", () => {
         };
 
         await act(async () => {
-          wrapper = render(
-            <DndProvider backend={Backend}>
-              <Board {...props} />
-            </DndProvider>
-          );
+          wrapper = render(<Board {...props} />);
         });
       });
 
