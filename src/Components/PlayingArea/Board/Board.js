@@ -3,16 +3,43 @@ import PropTypes from "prop-types";
 import {
   startingBoard,
   checkIfASquareIsAvailable,
+  turningChipAfterAPlayerAddedOne,
 } from "../../../utils/gameRules";
 import Square from "./Square";
 import "./Board.scss";
 
-const Board = ({ currentPlayer, setCurrentPlayer }) => {
+const Board = ({ currentPlayer, setCurrentPlayer, opponent, setOpponent }) => {
   const [board, setBoard] = useState(startingBoard);
 
   useEffect(() => {
     checkIfASquareIsAvailable(board, currentPlayer, setBoard);
   }, [currentPlayer]);
+
+  const addChipOnTheBoard = (squareLineIndex, squareColumnIndex) => {
+    const newBoard = board.map((line, lineIndex) => {
+      return line.map((square, columnIndex) => {
+        if (
+          squareLineIndex === lineIndex &&
+          squareColumnIndex === columnIndex
+        ) {
+          return currentPlayer;
+        }
+        return square;
+      });
+    });
+
+    turningChipAfterAPlayerAddedOne(
+      squareLineIndex,
+      squareColumnIndex,
+      currentPlayer,
+      opponent,
+      newBoard,
+      setBoard
+    );
+
+    setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+    setOpponent(opponent === "black" ? "white" : "black");
+  };
 
   return (
     <ul data-testid="board" className="board">
@@ -29,10 +56,7 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
                 squareLineIndex={lineIndex}
                 squareColumnIndex={columnIndex}
                 type={square}
-                board={board}
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer}
-                setBoard={setBoard}
+                addChipOnTheBoard={addChipOnTheBoard}
               />
             ))}
           </ul>
@@ -45,6 +69,8 @@ const Board = ({ currentPlayer, setCurrentPlayer }) => {
 Board.propTypes = {
   currentPlayer: PropTypes.string.isRequired,
   setCurrentPlayer: PropTypes.func.isRequired,
+  opponent: PropTypes.string.isRequired,
+  setOpponent: PropTypes.func.isRequired,
 };
 
 export default Board;

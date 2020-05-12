@@ -7,6 +7,7 @@ import "./PlayingArea.scss";
 
 const PlayingArea = () => {
   const [currentPlayer, setCurrentPlayer] = useState("black");
+  const [opponent, setOpponent] = useState("white");
 
   return (
     <DndProvider backend={Backend}>
@@ -14,6 +15,8 @@ const PlayingArea = () => {
         <Board
           currentPlayer={currentPlayer}
           setCurrentPlayer={setCurrentPlayer}
+          opponent={opponent}
+          setOpponent={setOpponent}
         />
         <AsideBoard currentPlayer={currentPlayer} />
       </div>

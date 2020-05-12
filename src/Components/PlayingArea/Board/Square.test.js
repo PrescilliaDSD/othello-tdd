@@ -13,94 +13,10 @@ describe("Square component", () => {
 
     props = {
       connectDragSource: identity,
-      currentPlayer: "black",
-      setCurrentPlayer: jest.fn(),
-      board: [
-        [
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "available",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "black",
-          "white",
-          "available",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "available",
-          "white",
-          "black",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "available",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-        ],
-        [
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-          "empty",
-        ],
-      ],
-      setBoard: jest.fn(),
       squareLineIndex: 3,
       squareColumnIndex: 4,
       type: "white",
+      addChipOnTheBoard: jest.fn(),
     };
 
     wrapper = render(
@@ -136,7 +52,6 @@ describe("Square component", () => {
           squareLineIndex={3}
           squareColumnIndex={3}
           type="black"
-          currentPlayer="white"
         />
       </DndProvider>
     );
