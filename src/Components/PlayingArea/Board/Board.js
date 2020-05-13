@@ -12,7 +12,7 @@ const Board = ({ currentPlayer, setCurrentPlayer, opponent, setOpponent }) => {
   const [board, setBoard] = useState(startingBoard);
 
   useEffect(() => {
-    checkIfASquareIsAvailable(board, currentPlayer, setBoard);
+    checkIfASquareIsAvailable(board, currentPlayer, setBoard, opponent);
   }, [currentPlayer]);
 
   const addChipOnTheBoard = (squareLineIndex, squareColumnIndex) => {
