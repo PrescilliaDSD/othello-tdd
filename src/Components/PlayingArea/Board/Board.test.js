@@ -506,6 +506,211 @@ describe("Board component", () => {
         expect(square).toHaveClass("contains-available-chip");
       });
 
+      it("should be available if there is a black chip one square top left and a white chip two squares top left", async () => {
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l2c2");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is a black chip one square top right and a white chip two squares top right", async () => {
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l3c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l2c5");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is a black chip one square bottom left and a white chip two squares bottom left", async () => {
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l3c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l5c2");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
+      it("should be available if there is a black chip one square bottom right and a white chip two squares bottom right", async () => {
+        fireEvent(
+          wrapper.getByTestId("square-l3c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+        fireEvent(
+          wrapper.getByTestId("square-l2c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l1c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        const square = wrapper.getByTestId("square-l5c5");
+        expect(square).toHaveClass("contains-available-chip");
+      });
+
       it("should be available if there is 2 black chips below and a white chip three squares below", async () => {
         await act(async () => {
           wrapper.rerender(
