@@ -65,65 +65,94 @@ export const checkIfASquareIsAvailable = async (
         if (square === "empty") {
           if (
             lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex] === opponent
+            board[lineIndex + 1][columnIndex] === opponent &&
+            board[lineIndex + 2][columnIndex] === currentPlayer
           ) {
-            if (board[lineIndex + 2][columnIndex] === currentPlayer) {
-              return "available";
-            }
-            if (
-              board[lineIndex + 2][columnIndex] === opponent &&
-              board[lineIndex + 3][columnIndex] === currentPlayer
-            ) {
-              return "available";
-            }
             return "available";
           }
-
           if (
             lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex] === opponent
+            board[lineIndex - 1][columnIndex] === opponent &&
+            board[lineIndex - 2][columnIndex] === currentPlayer
           ) {
-            if (board[lineIndex - 2][columnIndex] === currentPlayer) {
-              return "available";
-            }
-            if (
-              board[lineIndex - 2][columnIndex] === opponent &&
-              board[lineIndex - 3][columnIndex] === currentPlayer
-            ) {
-              return "available";
-            }
             return "available";
           }
-
+          if (
+            columnIndex <= 5 &&
+            board[lineIndex][columnIndex + 1] === opponent &&
+            board[lineIndex][columnIndex + 2] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex >= 2 &&
+            board[lineIndex][columnIndex - 1] === opponent &&
+            board[lineIndex][columnIndex - 2] === currentPlayer
+          ) {
+            return "available";
+          }
           if (
             lineIndex <= 5 &&
-            board[lineIndex][columnIndex + 1] === opponent
+            columnIndex <= 5 &&
+            board[lineIndex + 1][columnIndex + 1] === opponent &&
+            board[lineIndex + 2][columnIndex + 2] === currentPlayer
           ) {
-            if (board[lineIndex][columnIndex + 2] === currentPlayer) {
-              return "available";
-            }
-            if (
-              board[lineIndex][columnIndex + 2] === opponent &&
-              board[lineIndex][columnIndex + 3] === currentPlayer
-            ) {
-              return "available";
-            }
             return "available";
           }
-
+          if (
+            lineIndex <= 5 &&
+            columnIndex >= 2 &&
+            board[lineIndex + 1][columnIndex - 1] === opponent &&
+            board[lineIndex + 2][columnIndex - 2] === currentPlayer
+          ) {
+            return "available";
+          }
           if (
             lineIndex >= 2 &&
-            board[lineIndex][columnIndex - 1] === opponent
+            columnIndex <= 5 &&
+            board[lineIndex - 1][columnIndex + 1] === opponent &&
+            board[lineIndex - 2][columnIndex + 2] === currentPlayer
           ) {
-            if (board[lineIndex][columnIndex - 2] === currentPlayer) {
-              return "available";
-            }
-            if (
-              board[lineIndex][columnIndex - 2] === opponent &&
-              board[lineIndex][columnIndex - 3] === currentPlayer
-            ) {
-              return "available";
-            }
+            return "available";
+          }
+          if (
+            lineIndex >= 2 &&
+            columnIndex >= 2 &&
+            board[lineIndex - 1][columnIndex - 1] === opponent &&
+            board[lineIndex - 2][columnIndex - 2] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            lineIndex <= 5 &&
+            board[lineIndex + 1][columnIndex] === opponent &&
+            board[lineIndex + 2][columnIndex] === opponent &&
+            board[lineIndex + 3][columnIndex] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            lineIndex >= 2 &&
+            board[lineIndex - 1][columnIndex] === opponent &&
+            board[lineIndex - 2][columnIndex] === opponent &&
+            board[lineIndex - 3][columnIndex] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex <= 5 &&
+            board[lineIndex][columnIndex + 1] === opponent &&
+            board[lineIndex][columnIndex + 2] === opponent &&
+            board[lineIndex][columnIndex + 3] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex >= 2 &&
+            board[lineIndex][columnIndex - 1] === opponent &&
+            board[lineIndex][columnIndex - 2] === opponent &&
+            board[lineIndex][columnIndex - 3] === currentPlayer
+          ) {
             return "available";
           }
         }
