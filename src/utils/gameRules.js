@@ -38,9 +38,17 @@ const checkBoardLimits = (
     case "toTheTop":
       return (
         squareLineIndex >= 2 &&
-        squareColumnIndex <= 7 &&
+        squareLineIndex <= 7 &&
         squareColumnIndex === columnIndex
       );
+    case "toTheTopLeft":
+      return squareLineIndex <= 5 && squareColumnIndex <= 5;
+    case "toTheTopRight":
+      return squareLineIndex <= 5 && squareColumnIndex >= 2;
+    case "toTheBottomLeft":
+      return squareLineIndex >= 2 && squareColumnIndex <= 5;
+    case "toTheBottomRight":
+      return squareLineIndex >= 2 && squareColumnIndex >= 2;
   }
 };
 
@@ -294,6 +302,70 @@ export const turningChipAfterAPlayerAddedOne = (
           } else {
             return square;
           }
+        }
+        if (
+          checkBoardLimits(
+            squareColumnIndex,
+            columnIndex,
+            squareLineIndex,
+            lineIndex,
+            "toTheTopLeft"
+          ) &&
+          squareColumnIndex + 1 === columnIndex &&
+          squareLineIndex + 1 === lineIndex
+        ) {
+          if (board[lineIndex + 1][columnIndex + 1] === currentPlayer) {
+            return currentPlayer;
+          }
+          return square;
+        }
+        if (
+          checkBoardLimits(
+            squareColumnIndex,
+            columnIndex,
+            squareLineIndex,
+            lineIndex,
+            "toTheTopRight"
+          ) &&
+          squareColumnIndex - 1 === columnIndex &&
+          squareLineIndex + 1 === lineIndex
+        ) {
+          if (board[lineIndex + 1][columnIndex - 1] === currentPlayer) {
+            return currentPlayer;
+          }
+          return square;
+        }
+        if (
+          checkBoardLimits(
+            squareColumnIndex,
+            columnIndex,
+            squareLineIndex,
+            lineIndex,
+            "toTheBottomLeft"
+          ) &&
+          squareColumnIndex + 1 === columnIndex &&
+          squareLineIndex - 1 === lineIndex
+        ) {
+          if (board[lineIndex - 1][columnIndex + 1] === currentPlayer) {
+            return currentPlayer;
+          }
+          return square;
+        }
+        if (
+          checkBoardLimits(
+            squareColumnIndex,
+            columnIndex,
+            squareLineIndex,
+            lineIndex,
+            "toTheBottomRight"
+          ) &&
+          squareColumnIndex - 1 === columnIndex &&
+          squareLineIndex - 1 === lineIndex
+        ) {
+          if (board[lineIndex - 1][columnIndex - 1] === currentPlayer) {
+            return currentPlayer;
+          }
+          return square;
         }
       }
       return square;

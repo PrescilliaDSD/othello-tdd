@@ -993,6 +993,173 @@ describe("Board component", () => {
         expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
       });
 
+      it("should turn one chip black if adding a black chip on the top left and there is a black chip on the bottom right", async () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l2c3");
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+        fireEvent(
+          wrapper.getByTestId("square-l2c3"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l1c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn one chip black if adding a black chip on the top right and there is a black chip on the bottom left", async () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l3c4");
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l2c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn one chip black if adding a black chip on the bottom left and there is a black chip on the top right", async () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c3");
+
+        fireEvent(
+          wrapper.getByTestId("square-l3c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
+      it("should turn one chip black if adding a black chip on the bottom right and there is a black chip on the top left", async () => {
+        const squareWithChipThatWillTurn = wrapper.getByTestId("square-l4c4");
+
+        fireEvent(
+          wrapper.getByTestId("square-l4c2"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="white" opponent="black" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c4"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await act(async () => {
+          wrapper.rerender(
+            <Board {...props} currentPlayer="black" opponent="white" />
+          );
+        });
+
+        fireEvent(
+          wrapper.getByTestId("square-l5c5"),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        expect(squareWithChipThatWillTurn).toHaveClass("contains-black-chip");
+      });
+
       it("should turn two chips black if adding a black chip on the right and there is a black chip on the left", async () => {
         const squareWithChipThatWillTurn1 = wrapper.getByTestId("square-l4c3");
         const squareWithChipThatWillTurn2 = wrapper.getByTestId("square-l4c4");
