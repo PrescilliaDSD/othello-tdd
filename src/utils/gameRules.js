@@ -163,6 +163,42 @@ export const checkIfASquareIsAvailable = async (
           ) {
             return "available";
           }
+          if (
+            columnIndex >= 2 &&
+            lineIndex >= 2 &&
+            board[lineIndex - 1][columnIndex - 1] === opponent &&
+            board[lineIndex - 2][columnIndex - 2] === opponent &&
+            board[lineIndex - 3][columnIndex - 3] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex <= 5 &&
+            lineIndex >= 2 &&
+            board[lineIndex - 1][columnIndex + 1] === opponent &&
+            board[lineIndex - 2][columnIndex + 2] === opponent &&
+            board[lineIndex - 3][columnIndex + 3] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex >= 2 &&
+            lineIndex <= 5 &&
+            board[lineIndex + 1][columnIndex - 1] === opponent &&
+            board[lineIndex + 2][columnIndex - 2] === opponent &&
+            board[lineIndex + 3][columnIndex - 3] === currentPlayer
+          ) {
+            return "available";
+          }
+          if (
+            columnIndex <= 5 &&
+            lineIndex <= 5 &&
+            board[lineIndex + 1][columnIndex + 1] === opponent &&
+            board[lineIndex + 2][columnIndex + 2] === opponent &&
+            board[lineIndex + 3][columnIndex + 3] === currentPlayer
+          ) {
+            return "available";
+          }
         }
         return square;
       });
@@ -304,66 +340,122 @@ export const turningChipAfterAPlayerAddedOne = (
           }
         }
         if (
-          checkBoardLimits(
+          (checkBoardLimits(
             squareColumnIndex,
             columnIndex,
             squareLineIndex,
             lineIndex,
             "toTheTopLeft"
           ) &&
-          squareColumnIndex + 1 === columnIndex &&
-          squareLineIndex + 1 === lineIndex
+            squareColumnIndex + 1 === columnIndex &&
+            squareLineIndex + 1 === lineIndex) ||
+          (squareColumnIndex + 2 === columnIndex &&
+            squareLineIndex + 2 === lineIndex)
         ) {
           if (board[lineIndex + 1][columnIndex + 1] === currentPlayer) {
             return currentPlayer;
           }
+          if (board[lineIndex + 1][columnIndex + 1] === opponent) {
+            if (board[lineIndex + 2][columnIndex + 2] === currentPlayer) {
+              return currentPlayer;
+            }
+            if (
+              board[lineIndex + 2][columnIndex + 2] === opponent &&
+              board[lineIndex + 3][columnIndex + 3] === currentPlayer
+            ) {
+              return currentPlayer;
+            }
+            return square;
+          }
           return square;
         }
         if (
-          checkBoardLimits(
+          (checkBoardLimits(
             squareColumnIndex,
             columnIndex,
             squareLineIndex,
             lineIndex,
             "toTheTopRight"
           ) &&
-          squareColumnIndex - 1 === columnIndex &&
-          squareLineIndex + 1 === lineIndex
+            squareColumnIndex - 1 === columnIndex &&
+            squareLineIndex + 1 === lineIndex) ||
+          (squareColumnIndex - 2 === columnIndex &&
+            squareLineIndex + 2 === lineIndex)
         ) {
           if (board[lineIndex + 1][columnIndex - 1] === currentPlayer) {
             return currentPlayer;
           }
+          if (board[lineIndex + 1][columnIndex - 1] === opponent) {
+            if (board[lineIndex + 2][columnIndex - 2] === currentPlayer) {
+              return currentPlayer;
+            }
+            if (
+              board[lineIndex + 2][columnIndex - 2] === opponent &&
+              board[lineIndex + 3][columnIndex - 3] === currentPlayer
+            ) {
+              return currentPlayer;
+            }
+            return square;
+          }
           return square;
         }
         if (
-          checkBoardLimits(
+          (checkBoardLimits(
             squareColumnIndex,
             columnIndex,
             squareLineIndex,
             lineIndex,
             "toTheBottomLeft"
           ) &&
-          squareColumnIndex + 1 === columnIndex &&
-          squareLineIndex - 1 === lineIndex
+            squareColumnIndex + 1 === columnIndex &&
+            squareLineIndex - 1 === lineIndex) ||
+          (squareColumnIndex + 2 === columnIndex &&
+            squareLineIndex - 2 === lineIndex)
         ) {
           if (board[lineIndex - 1][columnIndex + 1] === currentPlayer) {
             return currentPlayer;
           }
+          if (board[lineIndex - 1][columnIndex + 1] === opponent) {
+            if (board[lineIndex - 2][columnIndex + 2] === currentPlayer) {
+              return currentPlayer;
+            }
+            if (
+              board[lineIndex - 2][columnIndex + 2] === opponent &&
+              board[lineIndex - 3][columnIndex + 3] === currentPlayer
+            ) {
+              return currentPlayer;
+            }
+            return square;
+          }
           return square;
         }
         if (
-          checkBoardLimits(
+          (checkBoardLimits(
             squareColumnIndex,
             columnIndex,
             squareLineIndex,
             lineIndex,
             "toTheBottomRight"
           ) &&
-          squareColumnIndex - 1 === columnIndex &&
-          squareLineIndex - 1 === lineIndex
+            squareColumnIndex - 1 === columnIndex &&
+            squareLineIndex - 1 === lineIndex) ||
+          (squareColumnIndex - 2 === columnIndex &&
+            squareLineIndex - 2 === lineIndex)
         ) {
           if (board[lineIndex - 1][columnIndex - 1] === currentPlayer) {
             return currentPlayer;
+          }
+          if (board[lineIndex - 1][columnIndex - 1] === opponent) {
+            if (board[lineIndex - 2][columnIndex - 2] === currentPlayer) {
+              return currentPlayer;
+            }
+            if (
+              board[lineIndex - 2][columnIndex - 2] === opponent &&
+              board[lineIndex - 3][columnIndex - 3] === currentPlayer
+            ) {
+              return currentPlayer;
+            }
+            return square;
           }
           return square;
         }
