@@ -70,135 +70,134 @@ export const checkIfASquareIsAvailable = async (
   const newBoardWithAvailableChip = await clearedBoard.map(
     (line, lineIndex) => {
       return line.map((square, columnIndex) => {
-        if (square === "empty") {
-          if (
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex] === opponent &&
-            board[lineIndex + 2][columnIndex] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex] === opponent &&
-            board[lineIndex - 2][columnIndex] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            board[lineIndex][columnIndex + 1] === opponent &&
-            board[lineIndex][columnIndex + 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex >= 2 &&
-            board[lineIndex][columnIndex - 1] === opponent &&
-            board[lineIndex][columnIndex - 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex <= 5 &&
-            columnIndex <= 5 &&
-            board[lineIndex + 1][columnIndex + 1] === opponent &&
-            board[lineIndex + 2][columnIndex + 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex <= 5 &&
-            columnIndex >= 2 &&
-            board[lineIndex + 1][columnIndex - 1] === opponent &&
-            board[lineIndex + 2][columnIndex - 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            columnIndex <= 5 &&
-            board[lineIndex - 1][columnIndex + 1] === opponent &&
-            board[lineIndex - 2][columnIndex + 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            columnIndex >= 2 &&
-            board[lineIndex - 1][columnIndex - 1] === opponent &&
-            board[lineIndex - 2][columnIndex - 2] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex] === opponent &&
-            board[lineIndex + 2][columnIndex] === opponent &&
-            board[lineIndex + 3][columnIndex] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex] === opponent &&
-            board[lineIndex - 2][columnIndex] === opponent &&
-            board[lineIndex - 3][columnIndex] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            board[lineIndex][columnIndex + 1] === opponent &&
-            board[lineIndex][columnIndex + 2] === opponent &&
-            board[lineIndex][columnIndex + 3] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex >= 2 &&
-            board[lineIndex][columnIndex - 1] === opponent &&
-            board[lineIndex][columnIndex - 2] === opponent &&
-            board[lineIndex][columnIndex - 3] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex >= 2 &&
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex - 1] === opponent &&
-            board[lineIndex - 2][columnIndex - 2] === opponent &&
-            board[lineIndex - 3][columnIndex - 3] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            lineIndex >= 2 &&
-            board[lineIndex - 1][columnIndex + 1] === opponent &&
-            board[lineIndex - 2][columnIndex + 2] === opponent &&
-            board[lineIndex - 3][columnIndex + 3] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex >= 2 &&
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex - 1] === opponent &&
-            board[lineIndex + 2][columnIndex - 2] === opponent &&
-            board[lineIndex + 3][columnIndex - 3] === currentPlayer
-          ) {
-            return "available";
-          }
-          if (
-            columnIndex <= 5 &&
-            lineIndex <= 5 &&
-            board[lineIndex + 1][columnIndex + 1] === opponent &&
-            board[lineIndex + 2][columnIndex + 2] === opponent &&
-            board[lineIndex + 3][columnIndex + 3] === currentPlayer
-          ) {
-            return "available";
-          }
+        if (square !== "empty") return square;
+        if (
+          lineIndex <= 5 &&
+          board[lineIndex + 1][columnIndex] === opponent &&
+          board[lineIndex + 2][columnIndex] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex >= 2 &&
+          board[lineIndex - 1][columnIndex] === opponent &&
+          board[lineIndex - 2][columnIndex] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex <= 5 &&
+          board[lineIndex][columnIndex + 1] === opponent &&
+          board[lineIndex][columnIndex + 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex >= 2 &&
+          board[lineIndex][columnIndex - 1] === opponent &&
+          board[lineIndex][columnIndex - 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex <= 5 &&
+          columnIndex <= 5 &&
+          board[lineIndex + 1][columnIndex + 1] === opponent &&
+          board[lineIndex + 2][columnIndex + 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex <= 5 &&
+          columnIndex >= 2 &&
+          board[lineIndex + 1][columnIndex - 1] === opponent &&
+          board[lineIndex + 2][columnIndex - 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex >= 2 &&
+          columnIndex <= 5 &&
+          board[lineIndex - 1][columnIndex + 1] === opponent &&
+          board[lineIndex - 2][columnIndex + 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex >= 2 &&
+          columnIndex >= 2 &&
+          board[lineIndex - 1][columnIndex - 1] === opponent &&
+          board[lineIndex - 2][columnIndex - 2] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex <= 5 &&
+          board[lineIndex + 1][columnIndex] === opponent &&
+          board[lineIndex + 2][columnIndex] === opponent &&
+          board[lineIndex + 3][columnIndex] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          lineIndex >= 2 &&
+          board[lineIndex - 1][columnIndex] === opponent &&
+          board[lineIndex - 2][columnIndex] === opponent &&
+          board[lineIndex - 3][columnIndex] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex <= 5 &&
+          board[lineIndex][columnIndex + 1] === opponent &&
+          board[lineIndex][columnIndex + 2] === opponent &&
+          board[lineIndex][columnIndex + 3] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex >= 2 &&
+          board[lineIndex][columnIndex - 1] === opponent &&
+          board[lineIndex][columnIndex - 2] === opponent &&
+          board[lineIndex][columnIndex - 3] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex >= 2 &&
+          lineIndex >= 2 &&
+          board[lineIndex - 1][columnIndex - 1] === opponent &&
+          board[lineIndex - 2][columnIndex - 2] === opponent &&
+          board[lineIndex - 3][columnIndex - 3] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex <= 5 &&
+          lineIndex >= 2 &&
+          board[lineIndex - 1][columnIndex + 1] === opponent &&
+          board[lineIndex - 2][columnIndex + 2] === opponent &&
+          board[lineIndex - 3][columnIndex + 3] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex >= 2 &&
+          lineIndex <= 5 &&
+          board[lineIndex + 1][columnIndex - 1] === opponent &&
+          board[lineIndex + 2][columnIndex - 2] === opponent &&
+          board[lineIndex + 3][columnIndex - 3] === currentPlayer
+        ) {
+          return "available";
+        }
+        if (
+          columnIndex <= 5 &&
+          lineIndex <= 5 &&
+          board[lineIndex + 1][columnIndex + 1] === opponent &&
+          board[lineIndex + 2][columnIndex + 2] === opponent &&
+          board[lineIndex + 3][columnIndex + 3] === currentPlayer
+        ) {
+          return "available";
         }
         return square;
       });
