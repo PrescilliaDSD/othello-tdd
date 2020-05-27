@@ -28,14 +28,14 @@ const Board = ({ currentPlayer, setCurrentPlayer, opponent, setOpponent }) => {
       });
     });
 
-    turningChipAfterAPlayerAddedOne(
-      squareLineIndex,
-      squareColumnIndex,
-      currentPlayer,
-      opponent,
-      newBoard,
-      setBoard
-    );
+    // turningChipAfterAPlayerAddedOne(
+    //   squareLineIndex,
+    //   squareColumnIndex,
+    //   currentPlayer,
+    //   opponent,
+    //   newBoard,
+    //   setBoard
+    // );
 
     setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
     setOpponent(opponent === "black" ? "white" : "black");
